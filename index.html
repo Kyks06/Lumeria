@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Éclats de Lumeria</title>
+  <meta name="description" content="Jeu de capture de créatures en pixel art dans le navigateur : 357 Lumins, 16 types, 8 arènes, la Ligue du Zénith et l'Ordre du Crépuscule.">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <meta name="theme-color" content="#0d1322">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/favicon.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lumeria">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pixel.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/build/three.module.js",
+        "three/addons/": "./vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="ui">
+    <!-- Écran de chargement -->
+    <section id="loading" class="screen">
+      <div class="load-inner">
+        <div class="logo">
+          <span class="logo-top">Éclats de</span>
+          <span class="logo-main">LUMERIA</span>
+          <span class="logo-sub">L'Ordre du Crépuscule</span>
+        </div>
+        <div class="load-bar"><div class="load-fill" id="load-fill"></div></div>
+        <div class="load-row"><span id="load-label">Préparation…</span><span id="load-pct">0 %</span></div>
+        <p class="load-tip" id="load-tip"></p>
+      </div>
+    </section>
+
+    <!-- Interface d'exploration -->
+    <section id="hud" hidden>
+      <div id="labels"></div>
+      <div id="area-banner"><span class="area-sub"></span><span class="area-name"></span></div>
+      <div class="hud-tr">
+        <div class="hud-chips">
+          <div id="clock" class="chip"><span class="clock-icon"></span><span class="clock-time">09:00</span></div>
+          <div id="money" class="chip">◆ 0</div>
+        </div>
+        <canvas id="minimap"></canvas>
+        <div id="mount" class="chip" hidden></div>
+      </div>
+      <div id="objective"></div>
+      <div id="team-strip"></div>
+      <div id="prompt" hidden><kbd id="prompt-key">E</kbd><span id="prompt-text">Parler</span></div>
+      <button id="btn-pause" class="hud-btn" type="button" aria-label="Menu">☰</button>
+      <div id="controls-help"></div>
+    </section>
+
+    <!-- Commandes tactiles (format téléphone) -->
+    <section id="touch" hidden>
+      <div id="dpad" class="dpad" role="group" aria-label="Croix directionnelle">
+        <span class="arm up"></span><span class="arm left"></span><span class="arm right"></span><span class="arm down"></span><span class="hub"></span>
+      </div>
+      <div class="ab">
+        <button id="btn-b" class="tbtn b" type="button" aria-label="B : retour, maintenir pour courir">B</button>
+        <button id="btn-a" class="tbtn a" type="button" aria-label="A : valider, parler">A</button>
+      </div>
+      <div class="sys">
+        <button id="btn-bike" class="pill" type="button">Vélo</button>
+        <button id="btn-menu" class="pill" type="button">Menu</button>
+        <button id="btn-run" class="pill" type="button">Course</button>
+      </div>
+    </section>
+
+    <!-- Dialogues -->
+    <section id="dialogue" hidden>
+      <div class="dlg-box">
+        <div class="dlg-name" id="dlg-name"></div>
+        <p class="dlg-text" id="dlg-text"></p>
+        <span class="dlg-next">▼</span>
+      </div>
+      <div class="dlg-choices" id="dlg-choices"></div>
+    </section>
+
+    <!-- Interface de combat -->
+    <section id="battle-ui" hidden>
+      <div class="bpanel enemy hide" id="bp-enemy"></div>
+      <div class="bpanel player hide" id="bp-player"></div>
+      <div class="enemy-dots" id="enemy-dots"></div>
+      <div class="ability-banner" id="ability-banner"></div>
+      <div class="battle-bottom">
+        <div class="battle-msg" id="battle-msg"><p id="battle-text"></p><span class="dlg-next">▼</span></div>
+        <div class="battle-actions" id="battle-actions" hidden></div>
+        <div class="battle-moves" id="battle-moves" hidden></div>
+      </div>
+      <div class="sheet" id="battle-sheet" hidden></div>
+      <div class="levelup" id="levelup" hidden></div>
+    </section>
+
+    <!-- Effets d'interface -->
+    <div id="bubble" hidden>!</div>
+    <div id="cutin" hidden></div>
+    <div id="swirl"><div class="swirl-shards"></div><div class="swirl-core"></div></div>
+    <div id="fade"></div>
+    <div id="flash"></div>
+    <div id="toasts"></div>
+  </div>
+
+  <noscript>Ce jeu nécessite JavaScript et WebGL.</noscript>
+  <script type="module" src="src/main.js"></script>
+  <script>
+    // Application installable : fonctionne hors ligne après le premier lancement.
+    if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+    }
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); window.__lumeriaInstall = e; });
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ÉCLATS DE LUMERIA — THÈME PIXEL (façon GBA)
+   Fenêtres crème à double liseré, police pixel, curseur ▶, barres de PV
+   cernées. Ce fichier surcharge style.css : le supprimer rend l'ancien thème.
+   ═══════════════════════════════════════════════════════════════════ */
+/* Police pixel embarquée (Pixelify Sans, licence OFL) : fonctionne hors ligne. */
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 400 500; font-display: swap; src: url('../fonts/pixelify-sans-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+25B6, U+25BC; }
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('../fonts/pixelify-sans-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('../fonts/pixelify-sans-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 400 500; font-display: swap; src: url('../fonts/pixelify-sans-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Pixelify Sans'; font-style: normal; font-weight: 600 700; font-display: swap; src: url('../fonts/pixelify-sans-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+:root {
+  --px-ink: #2a2c3c;
+  --px-paper: #fbf7ec;
+  --px-dark: #283048;
+  --px-accent: #e0602a;
+  --px-sel: #ffe7a0;
+  --display: 'Pixelify Sans', 'Silkscreen', 'Courier New', monospace;
+  --body: 'Pixelify Sans', 'Trebuchet MS', sans-serif;
+  --ui: 'Pixelify Sans', 'Courier New', monospace;
+  /* cadre crème : contour sombre, liseré blanc, filet bleu (12 × 12, découpe 4) */
+  --frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='10' height='10' fill='%23fbf7ec'/%3E%3Cpath fill='%23283048' d='M2 0h8v1H2zM2 11h8v1H2zM0 2h1v8H0zM11 2h1v8h-1zM1 1h1v1H1zM10 1h1v1h-1zM1 10h1v1H1zM10 10h1v1h-1z'/%3E%3Cpath fill='%237f9ad6' d='M3 2h6v1H3zM3 9h6v1H3zM2 3h1v6H2zM9 3h1v6H9z'/%3E%3C/svg%3E");
+  /* cadre nuit (messages de combat) */
+  --frame-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='10' height='10' fill='%23263252'/%3E%3Cpath fill='%230c1020' d='M2 0h8v1H2zM2 11h8v1H2zM0 2h1v8H0zM11 2h1v8h-1zM1 1h1v1H1zM10 1h1v1h-1zM1 10h1v1H1zM10 10h1v1h-1z'/%3E%3Cpath fill='%23e8b860' d='M3 2h6v1H3zM3 9h6v1H3zM2 3h1v6H2zM9 3h1v6H9z'/%3E%3C/svg%3E");
+  /* petit cadre de bouton (8 × 8, découpe 2) */
+  --btnframe: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='6' height='6' fill='%23f4eedd'/%3E%3Cpath fill='%23ffffff' d='M2 1h4v1H2z'/%3E%3Cpath fill='%23d8ccb0' d='M2 6h4v1H2z'/%3E%3Cpath fill='%23283048' d='M2 0h4v1H2zM2 7h4v1H2zM0 2h1v4H0zM7 2h1v4H7zM1 1h1v1H1zM6 1h1v1H6zM1 6h1v1H1zM6 6h1v1H6z'/%3E%3C/svg%3E");
+  --btnframe-on: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='6' height='6' fill='%23ffe08a'/%3E%3Cpath fill='%23fff6d0' d='M2 1h4v1H2z'/%3E%3Cpath fill='%23f0a848' d='M2 6h4v1H2z'/%3E%3Cpath fill='%23c04a1a' d='M2 0h4v1H2zM2 7h4v1H2zM0 2h1v4H0zM7 2h1v4H7zM1 1h1v1H1zM6 1h1v1H6zM1 6h1v1H1zM6 6h1v1H6z'/%3E%3C/svg%3E");
+}
+
+body { font-family: var(--body); -webkit-font-smoothing: none; font-smooth: never; }
+img.px-portrait, .px-portrait img, .ts-item img, .mon-btn img, .dex-cell img, .sum-img, .detail .portrait img { image-rendering: pixelated; }
+
+/* ── Fenêtres crème ─────────────────────────────────────────────── */
+.dlg-box, .bpanel, .sheet-panel, .pause, .summary, .name-panel, .levelup, .toast, .chip, #objective, #prompt,
+.battle-actions, .battle-moves, .starter-card, .hof-card, #area-banner, .pc-body, .save-card {
+  --pearl: var(--px-ink); --muted: #5a6078; --dim: #8088a0; --gold: #c4501a; --gold-2: #e07a2a;
+  --line: rgba(40, 48, 72, 0.3); --line-strong: rgba(40, 48, 72, 0.6); --good: #2ea860; --warn: #d89a10; --bad: #d83a3a; --xp: #3a8ad8;
+  color: var(--px-ink);
+  clip-path: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: 8px solid transparent;
+  border-image: var(--frame) 4 fill / 8px stretch;
+  filter: drop-shadow(0 3px 0 rgba(10, 14, 28, 0.35));
+  backdrop-filter: none !important;
+}
+.dlg-box::before, .battle-msg::before { display: none; }
+
+/* ── Boutons : petite fenêtre, sélection jaune et curseur ▶ ───────── */
+.btn {
+  background: none !important;
+  clip-path: none !important;
+  border: 4px solid transparent;
+  border-image: var(--btnframe) 2 fill / 4px stretch;
+  color: var(--px-ink);
+  font-family: var(--ui);
+  font-weight: 600;
+  padding: 0.6rem 0.9rem 0.6rem 1.5rem;
+  transition: none;
+  text-shadow: none;
+}
+.btn::after {
+  content: '▶';
+  position: absolute; left: 0.35rem; top: 50%; bottom: auto; width: auto;
+  background: none !important;
+  color: var(--px-accent);
+  font-size: 0.8em;
+  transform: translateY(-50%) scale(0) !important;
+  transition: none;
+}
+.btn.is-focus, .btn:focus-visible {
+  background: none !important;
+  border-image: var(--btnframe-on) 2 fill / 4px stretch;
+  color: #2a1404;
+  transform: none;
+}
+.btn.is-focus::after { transform: translateY(-50%) scale(1) !important; animation: pxCursor 0.6s steps(2) infinite; }
+.btn[disabled], .btn.is-disabled { opacity: 0.5; }
+.btn.is-disabled.is-focus { background: none !important; }
+.btn .btn-sub { color: #5a6078; }
+.btn-ghost { opacity: 0.92; }
+@keyframes pxCursor { 50% { margin-left: 2px; } }
+
+/* boutons à plat dans les menus de combat (liste GBA) */
+.battle-actions .btn, .battle-moves .btn {
+  border-image: none; border: 0; padding: 0.55rem 0.6rem 0.55rem 1.5rem; border-radius: 0;
+}
+.battle-actions .btn.is-focus, .battle-moves .btn.is-focus { border-image: none; background: var(--px-sel) !important; }
+.battle-actions .btn .ico { display: none; }
+.battle-actions, .battle-moves { gap: 0.15rem 0.6rem; padding: 0.3rem; }
+.move-btn .mv-meta { font-family: var(--ui); color: #5a6078; font-size: 0.78rem; }
+.move-btn.is-focus .mv-meta { color: #4a3018; }
+.move-back { color: #5a6078 !important; }
+
+/* ── Dialogue ──────────────────────────────────────────────────── */
+.dlg-box { padding: 0.9rem 1.3rem 1rem; min-height: 116px; }
+.dlg-text { font-size: clamp(1.05rem, 2.3vw, 1.25rem); line-height: 1.5; letter-spacing: 0.01em; }
+.dlg-name {
+  top: -1.55rem; left: 0.6rem; transform: none;
+  padding: 0.15rem 0.7rem;
+  background: var(--px-dark); color: #fbf7ec;
+  clip-path: none;
+  font-family: var(--ui); font-weight: 700; font-size: 0.9rem;
+  box-shadow: 2px 2px 0 rgba(10, 14, 28, 0.4);
+}
+.dlg-next { color: var(--px-accent); }
+
+/* ── Combat ────────────────────────────────────────────────────── */
+.battle-msg {
+  clip-path: none !important; background: none !important; box-shadow: none !important;
+  border: 8px solid transparent; border-image: var(--frame-dark) 4 fill / 8px stretch;
+  color: #ffffff; padding: 0.9rem 1.2rem;
+  filter: drop-shadow(0 3px 0 rgba(10, 14, 28, 0.35));
+}
+.battle-msg p { font-size: clamp(1.05rem, 2.3vw, 1.25rem); text-shadow: 2px 2px 0 #0c1020; }
+.bpanel { padding: 0.4rem 0.7rem 0.5rem; width: min(330px, 44vw); }
+.bp-name { font-family: var(--display); font-weight: 700; font-size: 1.15rem; }
+.bp-lv { color: var(--px-ink); font-family: var(--ui); }
+.bp-hp { gap: 0.35rem; margin-top: 0.3rem; }
+.bp-hp .tag {
+  background: #e8a020; color: #fff; padding: 0 0.3rem; font-size: 0.72rem; letter-spacing: 0.05em; line-height: 1.2;
+  border: 2px solid var(--px-dark); text-shadow: 1px 1px 0 #8a4a10;
+}
+.hpbar { background: #48506a; border-radius: 0 !important; }
+.bp-hp .hpbar { height: 10px; clip-path: none; border: 2px solid var(--px-dark); box-sizing: content-box; }
+.hpbar i { border-radius: 0 !important; background: #48d878; box-shadow: inset 0 -2px 0 #28a858; }
+.hpbar i.mid { background: #f0c828; box-shadow: inset 0 -2px 0 #c09810; }
+.hpbar i.low { background: #f04838; box-shadow: inset 0 -2px 0 #b02818; }
+.bp-nums { font-family: var(--ui); }
+.bp-xp { height: 5px; background: #48506a; border: 2px solid var(--px-dark); box-sizing: content-box; }
+.bp-xp i { background: #48a8f8; box-shadow: none; }
+.type-chip { clip-path: none !important; border: 2px solid rgba(20, 24, 40, 0.55); border-radius: 0; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35); }
+.enemy-dots i { clip-path: none; border-radius: 50%; border: 2px solid var(--px-dark); background: #ff5a4a; }
+.enemy-dots i.ko { background: #8a90a0; }
+
+/* ── Menus et écrans ───────────────────────────────────────────── */
+.pause-side { border-right: 2px dashed rgba(40, 48, 72, 0.25); }
+.pause-side .btn.active:not(.is-focus) { background: rgba(255, 220, 140, 0.35) !important; color: var(--px-ink); }
+.pause-main h2, .sheet-title, .sum-head h2, .name-panel h2 { font-family: var(--display); font-weight: 700; letter-spacing: 0.01em; }
+.sum-tabs span { clip-path: none; border: 2px solid var(--px-dark); background: #ece4d0; }
+.sum-tabs span.on { background: var(--px-sel); color: #2a1404; }
+.sum-img, .detail .portrait { background: radial-gradient(circle at 50% 62%, rgba(127, 154, 214, 0.28), transparent 68%); }
+.stat-row .bar { background: #ddd4c0; border: 2px solid rgba(40, 48, 72, 0.5); height: 8px; box-sizing: content-box; }
+.stat-row .bar i { background: linear-gradient(90deg, #f08a2a, #f8c838); }
+.mv-pill { background: rgba(40, 48, 72, 0.06); }
+.dex-cell { padding: 0.5rem 0.3rem 0.5rem 0.3rem; }
+.dex-cell .got { clip-path: none; border-radius: 50%; border: 2px solid var(--px-dark); background: #ff5a4a; }
+.chip { padding: 0.25rem 0.65rem; font-family: var(--ui); }
+#money { color: #b8601a; }
+.toast { border-left: 0; font-family: var(--ui); }
+#area-banner { padding: 0.4rem 1.6rem 0.5rem; }
+.area-sub { color: #5a6078; letter-spacing: 0.2em; }
+.area-name { font-family: var(--display); font-weight: 700; color: var(--px-ink); }
+.npc-label { font-family: var(--ui); border-radius: 0; text-shadow: 1px 1px 0 #000; }
+.ts-item { border-radius: 0; }
+.name-panel input { font-family: var(--ui); border-radius: 0; }
+.levelup .row b { color: #2ea860; }
+kbd { font-family: var(--ui); border-radius: 0; }
+
+/* ── Titre ─────────────────────────────────────────────────────── */
+.logo-main { font-family: var(--display); font-weight: 700; letter-spacing: 0.02em; background: linear-gradient(180deg, #fff8e6 0%, #ffd27a 50%, #ff8a3c 50%, #ff6a2a 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(4px 4px 0 #283048) drop-shadow(0 0 18px rgba(255, 170, 70, 0.4)); }
+.logo-top, .logo-sub { font-family: var(--ui); }
+.title-menu .btn { font-size: 1.05rem; }
+
+/* Téléphone à l'horizontale : écran titre compact */
+@media (max-height: 480px) {
+  .logo-big .logo-main { font-size: clamp(2.2rem, 15vh, 3.6rem); }
+  .title-content { gap: 0.6rem; padding-top: max(10px, env(safe-area-inset-top, 0px)); }
+  .title-menu { gap: 0.35rem; }
+  .title-menu .btn { padding-block: 0.4rem; }
+  .title-foot { display: none; }
+}

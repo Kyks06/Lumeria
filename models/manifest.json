@@ -1,0 +1,6 @@
+{
+  "_aide": "Listez ici les fichiers .glb présents. characters : player.glb, player_f.glb, npc.glb (dans /models). env : tree.glb, pine.glb, rock.glb, bush.glb, grass.glb… (dans /models/env). creatures : <id>.glb (dans /models/creatures, ex. germelin.glb). Tout fichier non listé est remplacé par une forme générée.",
+  "characters": [],
+  "env": [],
+  "creatures": []
+}
